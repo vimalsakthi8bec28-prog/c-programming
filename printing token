@@ -1,0 +1,28 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main() {
+    char *s;
+    // Allocate memory for a large sentence (up to 1000 characters)
+    s = malloc(1024 * sizeof(char));
+    
+    // Read the entire line, including spaces, until a newline is hit
+    if (scanf("%[^\n]", s) != 1) {
+        free(s);
+        return 0;
+    }
+    
+    // Loop through the string until the null-terminator
+    for (int i = 0; s[i] != '\0'; i++) {
+        if (s[i] == ' ') {
+            printf("\n"); // Replace space with a newline
+        } else {
+            printf("%c", s[i]); // Print the character
+        }
+    }
+    printf("\n"); // Print a trailing newline for the final word
+    
+    free(s);
+    return 0;
+}
