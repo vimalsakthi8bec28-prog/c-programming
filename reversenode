@@ -1,0 +1,48 @@
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        if (head == nullptr || k == 1) {
+            return head;
+        }
+
+        // Initialize dummy node to track the new head of the list
+        ListNode dummy(0);
+        dummy.next = head;
+        ListNode* pointer_before_group = &dummy;
+
+        while (true) {
+            // Check if there are at least k nodes left to reverse
+            ListNode* kth_node = pointer_before_group;
+            for (int i = 0; i < k && kth_node != nullptr; i++) {
+                kth_node = kth_node->next;
+            }
+
+            // If there are fewer than k nodes left, keep them as-is and exit
+            if (kth_node == nullptr) {
+                break;
+            }
+
+            // Track pointers for the reversal of this specific group
+            ListNode* pointer_after_group = kth_node->next;
+            ListNode* prev = pointer_after_group; // Acts as the tail link for the group
+            ListNode* curr = pointer_before_group->next;
+
+            // Reverse the sub-list of k nodes
+            for (int i = 0; i < k; i++) {
+                ListNode* next_node = curr->next;
+                curr->next = prev;
+                prev = curr;
+                curr = next_node;
+            }
+
+            // Connect the node before the group to the new head of the reversed group
+            ListNode* temporary_tail = pointer_before_group->next;
+            pointer_before_group->next = kth_node;
+            
+            // Advance the pointer to the end of the newly reversed group
+            pointer_before_group = temporary_tail;
+        }
+
+        return dummy.next;
+    }
+};
