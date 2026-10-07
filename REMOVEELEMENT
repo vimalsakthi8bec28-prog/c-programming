@@ -1,0 +1,16 @@
+int removeElement(int* nums, int numsSize, int val) {
+    // This pointer tracks the position to write the next valid element
+    int write_index = 0;
+    
+    // Loop through the entire array
+    for (int i = 0; i < numsSize; i++) {
+        // If the current element is NOT the value we want to remove
+        if (nums[i] != val) {
+            nums[write_index] = nums[i];
+            write_index++;
+        }
+    }
+    
+    // The write index matches the total count of valid elements (k)
+    return write_index;
+}
