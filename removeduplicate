@@ -1,0 +1,21 @@
+int removeDuplicates(int* nums, int numsSize) {
+    // Handle empty array edge case safely
+    if (numsSize == 0) {
+        return 0;
+    }
+    
+    // This pointer tracks the position to write the next unique element
+    int write_index = 1;
+    
+    // Loop through the array starting from the second element
+    for (int i = 1; i < numsSize; i++) {
+        // If the current element is different from the previous element
+        if (nums[i] != nums[i - 1]) {
+            nums[write_index] = nums[i];
+            write_index++;
+        }
+    }
+    
+    // The write index matches the total count of unique elements (k)
+    return write_index;
+}
